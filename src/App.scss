@@ -1,0 +1,19 @@
+.map-wrapper {
+  height: 90vh;
+}
+
+svg {
+  height: 100%;
+
+  path {
+    outline: none;
+
+    &:hover {
+      fill: #d7bb32;
+    }
+
+    &:focus {
+      fill: rgba(168, 43, 43, 0.6);
+    }
+  }
+}

@@ -1,36 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import WorldMap from "react-svg-worldmap";
 import type { CountryContext } from "react-svg-worldmap";
+import getCountryISO2 from "country-iso-3-to-2";
+import Drawer from "./components/Drawer";
 import Slider from "./components/Slider";
 import Summary from "./components/Summary";
-import getCountryISO2 from "country-iso-3-to-2";
 import "./App.scss";
 
 import countryHappinessData from "./assets/country-happiness-data.json"; // TODO: remove this
-
-/*
-TODO: click on a country:
-  - changes url
-  - drills into its data (maybe a sidepanel, or a takeover)
-  - handle invalid url
-TODO: fix all the typescript errors
-TODO: it is gettind data locally. use api. put it somewhere where it wont complain about too many requests.
-TODO: make it look a little nicer
-TODO: fancier loading state
-TODO: deploy it somewhere
-
-- caching, optimizing (am i using proper react hooks?)
-
-
-
-decisions:
-  map vs set vs object vs array
-  some years are missing for some countries
-
-  what do when click on a country (sidepanel vs takeover vs new page)
-
-  what to put in url (country, year)
-*/
 
 function App() {
   const [countryData, setCountryData] = useState(null);
@@ -76,9 +54,11 @@ function App() {
     fetchData();
   }, []);
 
-  const handleClickCountry = useCallback(({ countryName, countryCode, countryValue }: CountryContext) => {
-    console.log("clicked", countryName, countryCode, countryValue);
+  const handleClickCountry = useCallback(({ countryCode }: CountryContext) => {
+    navigate(`/${countryCode}`);
   }, []);
+
+  const navigate = useNavigate();
 
   function handleChangeYear(year: number | number[]) {
     setCurrentYear(year);
@@ -90,6 +70,8 @@ function App() {
 
   let min = 99;
   let max = 0;
+  let total = 0;
+  let count = 0;
   let happiestCountry = null;
   let saddestCountry = null;
   const currentYearData = [];
@@ -98,6 +80,8 @@ function App() {
     const happinessScoreForCurrentYear = yearlyData[currentYear];
     if (happinessScoreForCurrentYear) {
       currentYearData.push({ country: countryCode.toLowerCase(), value: happinessScoreForCurrentYear });
+      total += happinessScoreForCurrentYear;
+      count++;
 
       if (happinessScoreForCurrentYear > max) {
         max = happinessScoreForCurrentYear;
@@ -110,17 +94,71 @@ function App() {
     }
   });
 
+  function getStyle({ countryValue }: CountryContext) {
+    let fillColor;
+
+    if (countryValue === undefined) {
+      fillColor = "white";
+    } else if (countryValue < 1) {
+      fillColor = "#702222";
+    } else if (countryValue < 2) {
+      fillColor = "#af040d";
+    } else if (countryValue < 3) {
+      fillColor = "#d73210";
+    } else if (countryValue < 4) {
+      fillColor = "#f75c35";
+    } else if (countryValue < 5) {
+      fillColor = "#fc9841";
+    } else if (countryValue < 6) {
+      fillColor = "#fecb33";
+    } else if (countryValue < 6.5) {
+      fillColor = "#f7fc51";
+    } else if (countryValue < 7) {
+      fillColor = "#aef863";
+    } else if (countryValue < 7.5) {
+      fillColor = "#03a817";
+    } else if (countryValue < 8) {
+      fillColor = "#157302";
+    } else if (countryValue < 9) {
+      fillColor = "";
+    } else if (countryValue < 10) {
+      fillColor = "";
+    }
+
+    return {
+      fill: fillColor,
+      fillOpacity: 1,
+      stroke: "black",
+      strokeWidth: 1,
+      strokeOpacity: 0.2,
+      cursor: "pointer",
+    };
+  }
+
   return (
-    <div>
-      <h1>Happiness levels between 2011 and 2022</h1>
-      <Slider handleChangeYear={handleChangeYear} years={years} />
-      <Summary
-        currentYear={currentYear}
-        happiest={{ name: happiestCountry, score: max }}
-        saddest={{ name: saddestCountry, score: min }}
-      />
-      <WorldMap color="green" size="responsive" onClickFunction={handleClickCountry} data={currentYearData} />
-    </div>
+    <>
+      <div>
+        <h1>Happiness levels between 2011 and 2022</h1>
+        <Slider handleChangeYear={handleChangeYear} years={years} />
+        <Summary
+          currentYear={currentYear}
+          average={total / count}
+          happiest={{ name: happiestCountry, score: max }}
+          saddest={{ name: saddestCountry, score: min }}
+        />
+        <WorldMap
+          color="green"
+          size="responsive"
+          onClickFunction={handleClickCountry}
+          data={currentYearData}
+          styleFunction={getStyle}
+        />
+      </div>
+
+      <Routes>
+        <Route path=":countryCode" element={<Drawer countryCodeMappings={countryCodeMappings.current} />} />
+      </Routes>
+    </>
   );
 }
 

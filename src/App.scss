@@ -1,19 +1,7 @@
-.map-wrapper {
-  height: 90vh;
+html {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-svg {
-  height: 100%;
-
-  path {
-    outline: none;
-
-    &:hover {
-      fill: #d7bb32;
-    }
-
-    &:focus {
-      fill: rgba(168, 43, 43, 0.6);
-    }
-  }
+.map-wrapper {
+  height: 90vh;
 }

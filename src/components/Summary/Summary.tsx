@@ -6,20 +6,22 @@ interface IDetails {
 }
 
 interface ISummary {
+  average: number;
   currentYear: number | null;
   happiest: IDetails;
   saddest: IDetails;
 }
 
-function Summary({ currentYear, happiest, saddest }: ISummary) {
+function Summary({ average, currentYear, happiest, saddest }: ISummary) {
   return (
     <>
       <br />
       <br />
       {currentYear}
       <br />
-      Happiest Country: {happiest.name} ({happiest.score})<br />
-      Least happy Country: {saddest.name} ({saddest.score})<br />
+      Happiest Country: {happiest.name} ({happiest.score.toFixed(3)})<br />
+      Least happy Country: {saddest.name} ({saddest.score.toFixed(3)})<br />
+      Global average: {average.toFixed(3)}
     </>
   );
 }

@@ -6,9 +6,8 @@ import Drawer from "./components/Drawer";
 import Slider from "./components/Slider";
 import Summary from "./components/Summary";
 import { getFormattedData, getStyle, getYearsData } from "./utilities/helpers";
+import rawCountryHappinessData from "./assets/country-happiness-data.json";
 import "./App.scss";
-
-import countryHappinessData from "./assets/country-happiness-data.json"; // TODO: remove this
 
 function App() {
   const [yearlyData, setYearlyData] = useState<any | null>(null);
@@ -19,11 +18,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      // const response = await fetch("https://filebin.net/9y0b0dmcr6mkyh35/country-happiness-data.json");
-      // const rawData = await response.json();
-      const rawData = countryHappinessData;
-
-      const { formattedData, uniqueYears } = getFormattedData(countryCodeMappings, rawData);
+      const { formattedData, uniqueYears } = getFormattedData(countryCodeMappings, rawCountryHappinessData);
 
       setYears(uniqueYears);
       setCurrentYear(uniqueYears[uniqueYears.length - 1]);

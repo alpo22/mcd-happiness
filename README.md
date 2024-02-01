@@ -1,5 +1,3 @@
-TODO: it is getting data locally. use api. put it somewhere where it wont complain about too many requests.
-TODO: deploy it somewhere
 TODO: improve the readme
 
 - caching, optimizing (am i using proper react hooks?)
@@ -20,7 +18,7 @@ how store data (by year or by country). went by year so could easily get min/max
 
 # mcd-happiness
 
-Visualization of "Self-reported life satisfaction" by country since 2011.
+Simple app that visualizes the "Self-reported life satisfaction" ratings by country since 2011. Click on a country to see more information about that country's ratings. View the app here: https://alpo22.github.io/mcd-happiness
 
 # Local dev
 
@@ -31,8 +29,7 @@ npm run dev
 
 # Deploying
 
-App is hosted on GitHub pages: https://alpo22.github.io/mcd-happiness
-To deploy it, run:
+App is hosted on GitHub pages: https://alpo22.github.io/mcd-happiness and sometimes the deploy takes up to five minutes. To deploy it, run:
 
 ```
 npm run deploy

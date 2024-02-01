@@ -8,13 +8,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@ruvasik/react-region-svg-map": "^0.3.4",
     "antd": "^5.13.3",
     "country-iso-2-to-3": "^1.1.0",
     "country-iso-3-to-2": "^1.1.1",
+    "gh-pages": "^6.1.1",
     "rc-slider": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

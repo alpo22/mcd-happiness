@@ -11,9 +11,9 @@ import "./App.scss";
 import countryHappinessData from "./assets/country-happiness-data.json"; // TODO: remove this
 
 function App() {
-  const [yearlyData, setYearlyData] = useState(null);
-  const [years, setYears] = useState(null);
-  const [currentYear, setCurrentYear] = useState(null);
+  const [yearlyData, setYearlyData] = useState<any | null>(null);
+  const [years, setYears] = useState<string[] | null>(null);
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
   const countryCodeMappings = useRef(new Map()); // { 2-char code, fullname}
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ function App() {
     navigate(`/${countryCode}`);
   }, []);
 
-  function handleChangeYear(year: number | number[]) {
+  function handleChangeYear(year: number) {
     setCurrentYear(year);
   }
 
@@ -47,7 +47,7 @@ function App() {
 
   const { min, max, average, minCountry, maxCountry, formattedActiveYearData } = getYearsData(
     countryCodeMappings,
-    currentYear,
+    currentYear!,
     yearlyData
   );
 
@@ -57,7 +57,7 @@ function App() {
         path=""
         element={
           <div className="app-wrapper">
-            <h1>Self-reported life satisfaction between 2011 and 2022</h1>
+            <h1>Self-reported life satisfaction</h1>
             <p>Move the slider to change years, or click on a country to drill down.</p>
             <Slider handleChangeYear={handleChangeYear} years={years} />
             <Summary

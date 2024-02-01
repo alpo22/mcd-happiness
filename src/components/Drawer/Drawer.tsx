@@ -12,11 +12,14 @@ interface IDrawer {
 function Drawer({ countryCodeMappings, yearlyData }: IDrawer) {
   const navigate = useNavigate();
   const params = useParams();
-  const countryCode = params.countryCode;
+  const countryCode = params.countryCode!;
 
-  const { minScore, maxScore, minYear, maxYear, chartData } = getCountryData(countryCode, yearlyData);
+  const { bestPosition, bestPositionYear, worstPosition, worstPositionYear, chartData } = getCountryData(
+    countryCode,
+    yearlyData
+  );
 
-  const countryFullName = countryCodeMappings.get(countryCode!);
+  const countryFullName = countryCodeMappings.get(countryCode);
   const countryFound = !!countryFullName;
 
   const title = countryFound ? (
@@ -42,18 +45,18 @@ function Drawer({ countryCodeMappings, yearlyData }: IDrawer) {
           <table cellPadding={5} align="center">
             <tr>
               <th></th>
+              <th>Position</th>
               <th>Year</th>
-              <th>Score</th>
             </tr>
             <tr>
-              <th>Highest</th>
-              <td>{maxYear}</td>
-              <td>{maxScore.toFixed(3)}</td>
+              <th>Best</th>
+              <td>{bestPosition}</td>
+              <td>{bestPositionYear}</td>
             </tr>
             <tr>
-              <th>Lowest</th>
-              <td>{minYear}</td>
-              <td>{minScore.toFixed(3)}</td>
+              <th>Worst</th>
+              <td>{worstPosition}</td>
+              <td>{worstPositionYear}</td>
             </tr>
           </table>
           <LineChart width={500} height={300} data={chartData}>

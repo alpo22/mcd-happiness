@@ -1,27 +1,31 @@
-function getCountryData(countryCode, yearlyData) {
-  let minScore = 99;
-  let maxScore = 0;
-  let minYear = null;
-  let maxYear = null;
+function getCountryData(countryCode: string, yearlyData: any ) {
+  let bestPosition = 999;
+  let bestPositionYear = null;
+  let worstPosition = 0;
+  let worstPositionYear = null;
+
   const chartData = [];
 
   for (const [year, data] of yearlyData) {
     const score = data.get(countryCode);
+    const positionThisYear = Array.from(data).findIndex(([_countryCode, ]: any) => _countryCode === countryCode) + 1;
 
     chartData.unshift({ name: year, score });
 
-    if (score < minScore) {
-      minScore = score;
-      minYear = year;
-    }
+    if (positionThisYear > 0) {
+      if (positionThisYear < bestPosition) {
+        bestPosition = positionThisYear;
+        bestPositionYear = year;
+      }
 
-    if (score > maxScore) {
-      maxScore = score;
-      maxYear = year;
+      if (positionThisYear > worstPosition) {
+        worstPosition = positionThisYear;
+        worstPositionYear = year;
+      }
     }
   }
 
-  return { minScore, maxScore, minYear, maxYear, chartData };
+  return { bestPosition, bestPositionYear, worstPosition, worstPositionYear, chartData };
 }
 
 export { getCountryData };

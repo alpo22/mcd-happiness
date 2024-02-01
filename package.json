@@ -1,5 +1,6 @@
 {
-  "name": "vite-project",
+  "homepage": "https://alpo22.github.io/mcd-happiness",
+  "name": "Global Happiness App",
   "private": true,
   "version": "0.0.0",
   "type": "module",

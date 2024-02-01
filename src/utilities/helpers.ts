@@ -42,7 +42,7 @@ function getStyle({ countryValue }: CountryContext) {
   };
 }
 
-function getYearsData(countryCodeMappings, currentYear, yearlyData) {
+function getYearsData(countryCodeMappings: any, currentYear: number, yearlyData: any) {
   const min = Array.from(yearlyData.get(currentYear).values()).pop();
   const minCountry = Array.from(yearlyData.get(currentYear).keys()).pop();
   const max = Array.from(yearlyData.get(currentYear).values())[0];
@@ -66,11 +66,11 @@ function getYearsData(countryCodeMappings, currentYear, yearlyData) {
   };
 }
 
-function getFormattedData(countryCodeMappings, data) {
+function getFormattedData(countryCodeMappings: any, data: any) {
   const formattedData = new Map();
 
   // parse the data
-  data.forEach((datum) => {
+  data.forEach((datum: any) => {
     const countryCode = getCountryISO2(datum.code);
 
     if (countryCode) {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import WorldMap from "react-svg-worldmap";
 import type { CountryContext } from "react-svg-worldmap";
 import getCountryISO2 from "country-iso-3-to-2";
@@ -15,6 +15,7 @@ function App() {
   const [years, setYears] = useState(null);
   const [currentYear, setCurrentYear] = useState(null);
   const countryCodeMappings = useRef(new Map()); // { 2-char code, fullname}
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -57,8 +58,6 @@ function App() {
   const handleClickCountry = useCallback(({ countryCode }: CountryContext) => {
     navigate(`/${countryCode}`);
   }, []);
-
-  const navigate = useNavigate();
 
   function handleChangeYear(year: number | number[]) {
     setCurrentYear(year);
@@ -136,29 +135,33 @@ function App() {
   }
 
   return (
-    <>
-      <div>
-        <h1>Happiness levels between 2011 and 2022</h1>
-        <Slider handleChangeYear={handleChangeYear} years={years} />
-        <Summary
-          currentYear={currentYear}
-          average={total / count}
-          happiest={{ name: happiestCountry, score: max }}
-          saddest={{ name: saddestCountry, score: min }}
-        />
-        <WorldMap
-          color="green"
-          size="responsive"
-          onClickFunction={handleClickCountry}
-          data={currentYearData}
-          styleFunction={getStyle}
-        />
-      </div>
-
-      <Routes>
+    <Routes>
+      <Route
+        path=""
+        element={
+          <div>
+            <h1>Happiness levels between 2011 and 2022</h1>
+            <Slider handleChangeYear={handleChangeYear} years={years} />
+            <Summary
+              currentYear={currentYear}
+              average={total / count}
+              happiest={{ name: happiestCountry, score: max }}
+              saddest={{ name: saddestCountry, score: min }}
+            />
+            <WorldMap
+              color="green"
+              size="responsive"
+              onClickFunction={handleClickCountry}
+              data={currentYearData}
+              styleFunction={getStyle}
+            />
+            <Outlet />
+          </div>
+        }
+      >
         <Route path=":countryCode" element={<Drawer countryCodeMappings={countryCodeMappings.current} />} />
-      </Routes>
-    </>
+      </Route>
+    </Routes>
   );
 }
 

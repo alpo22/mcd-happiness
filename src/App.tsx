@@ -12,7 +12,7 @@ import countryHappinessData from "./assets/country-happiness-data.json"; // TODO
 
 function App() {
   const [yearlyData, setYearlyData] = useState<any | null>(null);
-  const [years, setYears] = useState<string[] | null>(null);
+  const [years, setYears] = useState<number[] | null>(null);
   const [currentYear, setCurrentYear] = useState<number | null>(null);
   const countryCodeMappings = useRef(new Map()); // { 2-char code, fullname}
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function App() {
     navigate(`/${countryCode}`);
   }, []);
 
-  function handleChangeYear(year: number) {
+  function handleChangeYear(year: any) {
     setCurrentYear(year);
   }
 
@@ -45,12 +45,13 @@ function App() {
     return "Loading...";
   }
 
-  const { min, max, average, minCountry, maxCountry, formattedActiveYearData } = getYearsData(
+  const { min, max, average, minCountry, maxCountry, formattedActiveYearData }: any = getYearsData(
     countryCodeMappings,
     currentYear!,
     yearlyData
   );
 
+  // eslint-disable-next-line
   return (
     <Routes>
       <Route

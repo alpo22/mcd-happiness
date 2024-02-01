@@ -96,7 +96,7 @@ function getFormattedData(countryCodeMappings: any, data: any) {
 
   // sort each year's data by score DESC
   [...dataSortedByYear.entries()].map(([year, data]) => {
-    const objectsSortedByScore = new Map(Object.entries(data).sort((a, b) => b[1] - a[1]));
+    const objectsSortedByScore = new Map(Object.entries(data).sort((a: any, b: any) => b[1] - a[1]));
 
     formattedData.set(year, objectsSortedByScore);
   });

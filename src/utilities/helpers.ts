@@ -2,34 +2,29 @@ import type { CountryContext } from "react-svg-worldmap";
 import getCountryISO2 from "country-iso-3-to-2";
 
 function getStyle({ countryValue }: CountryContext) {
-  let fillColor;
+  let fillColor = "white";
+  const colourMappings = [
+    { max: 10, color: "#157302" },
+    { max: 9, color: "#157302" },
+    { max: 8, color: "#157302" },
+    { max: 7.5, color: "#03a817" },
+    { max: 7, color: "#aef863" },
+    { max: 6.5, color: "#f7fc51" },
+    { max: 6, color: "#fecb33" },
+    { max: 5, color: "#fc9841" },
+    { max: 4, color: "#f75c35" },
+    { max: 3, color: "#d73210" },
+    { max: 2, color: "#af040d" },
+    { max: 1, color: "#702222" },
+  ];
 
-  if (countryValue === undefined) {
-    fillColor = "white";
-  } else if (countryValue < 1) {
-    fillColor = "#702222";
-  } else if (countryValue < 2) {
-    fillColor = "#af040d";
-  } else if (countryValue < 3) {
-    fillColor = "#d73210";
-  } else if (countryValue < 4) {
-    fillColor = "#f75c35";
-  } else if (countryValue < 5) {
-    fillColor = "#fc9841";
-  } else if (countryValue < 6) {
-    fillColor = "#fecb33";
-  } else if (countryValue < 6.5) {
-    fillColor = "#f7fc51";
-  } else if (countryValue < 7) {
-    fillColor = "#aef863";
-  } else if (countryValue < 7.5) {
-    fillColor = "#03a817";
-  } else if (countryValue < 8) {
-    fillColor = "#157302";
-  } else if (countryValue < 9) {
-    fillColor = "";
-  } else if (countryValue < 10) {
-    fillColor = "";
+  if (countryValue !== undefined) {
+    for (const { max, color } of colourMappings) {
+      if (countryValue > max) {
+        fillColor = color;
+        break;
+      }
+    }
   }
 
   return {

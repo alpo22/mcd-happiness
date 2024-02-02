@@ -35,7 +35,7 @@ The notable architecture includes:
 
 The app is simple and the component structure is shallow, so I simply manage state in the root and pass data down as props. There's no prop-drilling so no need for anything like `useContext`. Similarly, using a state management library like `Redux` would be overkill.
 
-I chose to store the formatted data in a `Map` data structure as I liked the idea of easily accessing the data using `year` as the `key`, but this led to lots of added complexity for sorting and looping over the `Map`. If I had to do it again I would use something simple like: `[ {year: 2000, data: { 'AF': 5.320, 'AB': 6.055 }}, ... ]` and use `immerjs` to easily manipulate the objects in state.
+I chose to store the formatted data in a `Map` data structure as it was convenient to access the data for the WorldMap using `year` as the `key`. Then I added the sidepanel, showing a country's data in more detail (by year, rank in their best and worst years). Parsing the data to display this information added a lot of complexity to the code that I'm not happy with (converting Map to Array, sorting, looping). If I had to do it again I would use something simple like: `[ {year: 2000, data: { 'AF': 5.320, 'AB': 6.055 }}, ... ]`.
 
 # UX
 

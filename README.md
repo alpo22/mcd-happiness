@@ -71,6 +71,7 @@ Confirm the code:
 - [ ] includes analytics/metrics (e.g. Pendo, Google Analytics)
 - [ ] includes error tracking package (e.g. Sentry, DataDog)
 - [ ] fails gracefully
+- [ ] passes AA accessibility
 
 # TODOs
 

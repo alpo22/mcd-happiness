@@ -39,12 +39,12 @@ I chose to store the formatted data in a `Map` data structure as I liked the ide
 
 # UX
 
-- Slider is more interesting than a dropdown and can be used with keyboard navigation. It's colour is not used in the map and aligns with colour of line chart in the Drawer
-- Map is responsive to fit width of screen
-- Used a Drawer instead of a new page as more visual interest
+- Slider is more interesting than a dropdown and can be used with keyboard navigation. It's colour is not used in the WorldMap and aligns with colour of line chart in the Drawer
+- WorldMap is responsive to fit width of screen
+- Used a Drawer instead of a new page as it helps the user maintain context (with the main app still visible in the background); plus the animation adds more visual interest
 - Drawer closes when press `esc` key or `onBlur`
-- Add country code to URL when click on a country in the map. You can share that link and the Drawer will open with that country's information, e.g. http://localhost:5173/mcd-happiness/CA (note: doesn't work on GitHub Pages, unfortunately)
-- Added flag of active country in Drawer
+- Add country code to URL when click on a country in the WorldMap. You can share that link and the Drawer will open with that country's information, e.g. http://localhost:5173/mcd-happiness/CA (note: doesn't work on GitHub Pages, unfortunately)
+- Added flag of active country in Drawer for more visual interest
 - Drawer gracefully handles trying to access an invalid country code, e.g. http://localhost:5173/mcd-happiness/XX
 
 # Scalability
@@ -78,13 +78,13 @@ Confirm the code:
 - add tests
 - add a legend, extract the colours from `helpers.ts::getStyle()`
 - add a Spinner instead of the text "Loading..."
-- textured colours in Map for a11y
+- textured colours in WorldMap for a11y
 - when click on a country, could store the info instead of recalculating it each time
 - lazy load sidepanel chunks
 - hardcode the country codes and full names instead of deriving them
 - sharing a link with a country code doesn't work on Github hosting (they arent redirecting request to index.html)
 - make slider responsive
-- use a map that is keyboard accessible
+- use a WorldMap that is keyboard accessible
 
 # Citations
 

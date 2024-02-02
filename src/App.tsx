@@ -1,32 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import WorldMap from "react-svg-worldmap";
 import type { CountryContext } from "react-svg-worldmap";
 import Drawer from "./components/Drawer";
 import Slider from "./components/Slider";
 import Summary from "./components/Summary";
-import { getFormattedData, getStyle, getYearsData } from "./utilities/helpers";
-import rawCountryHappinessData from "./assets/country-happiness-data.json";
+import useCountryData from "./utilities/useCountryData";
+import { getStyle, getYearsData } from "./utilities/helpers";
 import "./App.scss";
 
 function App() {
-  const [yearlyData, setYearlyData] = useState<any | null>(null);
-  const [years, setYears] = useState<number[] | null>(null);
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
-  const countryCodeMappings = useRef(new Map()); // { 2-char code, fullname}
+  const { countryCodeMappings, years, currentYear, setCurrentYear, yearlyData } = useCountryData();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function fetchData() {
-      const { formattedData, uniqueYears } = getFormattedData(countryCodeMappings, rawCountryHappinessData);
-
-      setYears(uniqueYears);
-      setCurrentYear(uniqueYears[uniqueYears.length - 1]);
-      setYearlyData(formattedData);
-    }
-
-    fetchData();
-  }, []);
 
   const handleClickCountry = useCallback(({ countryCode }: CountryContext) => {
     navigate(`/${countryCode}`);
@@ -46,7 +31,6 @@ function App() {
     yearlyData
   );
 
-  // eslint-disable-next-line
   return (
     <Routes>
       <Route

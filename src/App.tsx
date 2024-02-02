@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import WorldMap from "react-svg-worldmap";
 import type { CountryContext } from "react-svg-worldmap";
@@ -13,9 +12,9 @@ function App() {
   const { countryCodeMappings, years, currentYear, setCurrentYear, yearlyData } = useCountryData();
   const navigate = useNavigate();
 
-  const handleClickCountry = useCallback(({ countryCode }: CountryContext) => {
+  function handleClickCountry({ countryCode }: CountryContext) {
     navigate(`/${countryCode}`);
-  }, []);
+  }
 
   function handleChangeYear(year: any) {
     setCurrentYear(year);

@@ -13,11 +13,13 @@ npm run dev
 
 # Deploying
 
-App is hosted on GitHub Pages: https://alpo22.github.io/mcd-happiness and sometimes the deployment takes up to five minutes to appear online. To deploy your code, run:
+To deploy your code, run:
 
 ```
 npm run deploy
 ```
+
+Note that deployment sometimes takes a few minutes to appear online.
 
 # Project architecture
 
@@ -29,11 +31,9 @@ The notable architecture includes:
 - `react-router`
 - `antd`
 
-GitHub pages allows for easily deploying with a single command.
-
 # Data Flow and State Management
 
-The app is simple and the component structure is shallow, so I simply manage state in the root and pass data down as props. There's no prop-drilling so no need for anything like `useContext`. Similarly, using a state management library like `Redux` would be overkill, though it could reduce the number of child component re-renders.
+The app is simple and the component structure is shallow, so I simply manage state in the root and pass data down as props. There's no prop-drilling so no need for anything like `useContext`. Similarly, using a state management library like `Redux` would be overkill.
 
 I chose to store the formatted data in a `Map` data structure as I liked the idea of easily accessing the data using `year` as the `key`, but this led to lots of added complexity for sorting and looping over the `Map`. If I had to do it again I would use something simple like: `[ {year: 2000, data: { 'AF': 5.320, 'AB': 6.055 }}, ... ]` and use `immerjs` to easily manipulate the objects in state.
 

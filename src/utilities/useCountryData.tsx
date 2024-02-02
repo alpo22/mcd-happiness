@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getFormattedData } from "./helpers";
-import rawCountryHappinessData from "../assets/country-happiness-data.json";
+import rawCountryHappinessData from "./country-happiness-data.json";
 
 export default function useCountryData() {
   const [yearlyData, setYearlyData] = useState<any | null>(null);

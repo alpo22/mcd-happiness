@@ -43,21 +43,23 @@ function Drawer({ countryCodeMappings, yearlyData }: IDrawer) {
       {countryFound && (
         <>
           <table cellPadding={5} align="center">
-            <tr>
-              <th></th>
-              <th>Position</th>
-              <th>Year</th>
-            </tr>
-            <tr>
-              <th>Best</th>
-              <td>{bestPosition}</td>
-              <td>{bestPositionYear}</td>
-            </tr>
-            <tr>
-              <th>Worst</th>
-              <td>{worstPosition}</td>
-              <td>{worstPositionYear}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th></th>
+                <th>Position</th>
+                <th>Year</th>
+              </tr>
+              <tr>
+                <th>Best</th>
+                <td>{bestPosition}</td>
+                <td>{bestPositionYear}</td>
+              </tr>
+              <tr>
+                <th>Worst</th>
+                <td>{worstPosition}</td>
+                <td>{worstPositionYear}</td>
+              </tr>
+            </tbody>
           </table>
           <LineChart width={500} height={300} data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

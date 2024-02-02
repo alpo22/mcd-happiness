@@ -20,13 +20,13 @@ function App() {
     setCurrentYear(year);
   }
 
-  if (!yearlyData) {
+  if (!yearlyData || !currentYear) {
     return "Loading...";
   }
 
   const { min, max, average, minCountry, maxCountry, formattedActiveYearData }: any = getYearsData(
     countryCodeMappings,
-    currentYear!,
+    currentYear,
     yearlyData
   );
 
